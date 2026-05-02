@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- Red accent bar -->
+  <div class="accent-bar"></div>
+
+  <div class="header">
+    <svg class="header-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#b31b1b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+      <polyline points="14 2 14 8 20 8"/>
+      <line x1="12" y1="13" x2="12" y2="19"/>
+      <polyline points="9 16 12 19 15 16"/>
+    </svg>
+    <h1>arXiv Downloader</h1>
+  </div>
+
+  <!-- Not on arXiv -->
+  <div id="notArxiv" class="notice" style="display:none">
+    <p>Navigate to an arXiv abstract page<br><code>arxiv.org/abs/...</code></p>
+  </div>
+
+  <!-- Main content -->
+  <div id="main" style="display:none">
+    <!-- Paper info -->
+    <section class="paper-info">
+      <div class="paper-title" id="paperTitle"></div>
+      <div class="paper-authors" id="paperAuthors"></div>
+      <div class="paper-badges">
+        <span class="badge" id="badgeYear"></span>
+        <span class="badge" id="badgeId"></span>
+        <span class="badge" id="badgeCat" style="display:none"></span>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Format -->
+    <section class="format-section">
+      <label class="label" for="formatInput">Filename Format</label>
+      <input type="text" id="formatInput" class="input" spellcheck="false">
+      <div class="token-hint">
+        Tokens: <code>{author}</code> <code>{authorFull}</code> <code>{allAuthors}</code>
+        <code>{year}</code> <code>{month}</code> <code>{title}</code>
+        <code>{arxivId}</code> <code>{category}</code>
+      </div>
+      <div class="preview-box">
+        <span class="preview-label">Preview</span>
+        <span class="preview-text" id="previewText"></span>
+      </div>
+    </section>
+
+    <!-- Advanced settings (collapsible) -->
+    <details class="advanced">
+      <summary>Advanced Settings</summary>
+      <div class="settings-grid">
+        <label for="colonInput">Colon replacement</label>
+        <input type="text" id="colonInput" class="input input-sm" maxlength="4">
+
+        <label for="spaceSelect">Title spaces</label>
+        <select id="spaceSelect" class="input input-sm">
+          <option value="keep">Keep spaces</option>
+          <option value="underscore">Underscore _</option>
+          <option value="hyphen">Hyphen -</option>
+          <option value="dot">Dot .</option>
+        </select>
+
+        <label for="caseSelect">Title case</label>
+        <select id="caseSelect" class="input input-sm">
+          <option value="original">Original</option>
+          <option value="lowercase">lowercase</option>
+          <option value="titlecase">Title Case</option>
+        </select>
+
+        <label for="maxLenInput">Max title length</label>
+        <input type="number" id="maxLenInput" class="input input-sm" min="0" placeholder="0 = no limit">
+
+        <label for="saveAsCheck">Show "Save As" dialog</label>
+        <input type="checkbox" id="saveAsCheck" class="checkbox">
+      </div>
+    </details>
+
+    <!-- Download button -->
+    <button id="downloadBtn" class="btn-download">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Download PDF
+    </button>
+
+    <!-- Auto-rename toggle -->
+    <div class="auto-rename">
+      <label class="toggle-row">
+        <input type="checkbox" id="autoRenameCheck" class="checkbox">
+        <span>Auto-rename when clicking PDF links</span>
+      </label>
+    </div>
+  </div>
+
+  <script src="utils.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
